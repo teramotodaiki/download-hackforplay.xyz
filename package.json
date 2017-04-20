@@ -1,0 +1,11 @@
+{
+  "name": "download-hackforplay.xyz",
+  "version": "1.0.0",
+  "description": "Download json from hackforplay.xyz",
+  "main": "index.js",
+  "author": "teramotodaiki",
+  "license": "MIT",
+  "dependencies": {
+    "node-fetch": "^1.6.3"
+  }
+}
