@@ -3,6 +3,7 @@ const fetch = require('node-fetch');
 
 const fileName = 'graph.json';
 const coolTime = 500; // Delay for next fetch
+const skip = parseInt(process.argv[2] || '0');
 
 const graphFile = fs.readFileSync(fileName, 'utf-8');
 const graph = JSON.parse(graphFile).reverse();
@@ -11,7 +12,9 @@ main();
 async function main() {
 
   for (const item of graph) {
-    await upload(item);
+    if (item.id > skip) {
+      await upload(item);
+    }
   }
 
 }
