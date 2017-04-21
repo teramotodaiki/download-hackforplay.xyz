@@ -21,6 +21,14 @@ async function main() {
 
 async function upload(openGraph) {
 
+  for (const key of Object.keys(openGraph)) {
+    const value = openGraph[key];
+    if (typeof value === 'string' && value.length > 8190) {
+      console.warn(`💧 Upload failed because ${key} is too long.\t${openGraph['og:url']}`);
+      return;
+    }
+  }
+
   const body = {
     ogp: JSON.stringify(openGraph)
   };
@@ -34,8 +42,8 @@ async function upload(openGraph) {
     body: JSON.stringify(body)
   });
   if (!response.ok) {
-    console.error(`🚨 Error response is given`, response);
-    throw new Error(await response.text());
+    fs.writeFileSync('error.html', await response.text());
+    throw new Error(`🚨 Error response is given! see error.html`);
   }
   const text = await response.text();
   try {
